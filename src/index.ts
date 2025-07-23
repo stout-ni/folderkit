@@ -1,1 +1,2 @@
-export const squared = (n: number): number => n * n;
+export * from './folio';
+export type * from './types';
