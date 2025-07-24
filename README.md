@@ -1,7 +1,6 @@
 <div align="center">
-  <h1 align="center">
-    FolderKit
-  </h1>
+  <img width="120" src="./docs/logo.svg">
+  <h1 align="center">FolderKit</h1>
 </div>
 
 <p align="center">
