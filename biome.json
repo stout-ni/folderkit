@@ -13,7 +13,8 @@
     "useIgnoreFile": true
   },
   "formatter": {
-    "indentStyle": "space"
+    "indentStyle": "space",
+    "useEditorconfig": true
   },
   "javascript": {
     "formatter": {
