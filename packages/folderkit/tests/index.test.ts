@@ -61,5 +61,15 @@ describe('folderkit', () => {
       await expect(darkResult).toMatchImageSnapshot();
       await expect(lightResult).toMatchImageSnapshot();
     });
+
+    it('should apply tint color to the filtered icon', async () => {
+      const example = fs.readFileSync(DEFAULT_EXAMPLE_PATH);
+
+      const tintResult = await generate(example, {
+        filter: { tintColor: '#000000' },
+      });
+
+      await expect(tintResult).toMatchImageSnapshot();
+    });
   });
 });

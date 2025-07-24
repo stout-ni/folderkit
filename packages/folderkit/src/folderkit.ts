@@ -2,6 +2,7 @@ import type { SharpInput } from 'sharp';
 import {
   pipeBottomBezelMask,
   pipeFilledMask,
+  pipeFilter,
   pipeResizedMask,
   pipeTopBezelMask,
 } from '@/core/pipelines';
@@ -17,6 +18,7 @@ import {
 const DEFAULT_OPTIONS: Readonly<Options> = Object.freeze({
   trim: true,
   theme: FolderTheme.BigSurLight,
+  filter: {},
   resolution: Resolution.NonRetina256,
 });
 
@@ -107,7 +109,8 @@ const processImage = async (
       ),
     );
 
-    return result;
+    // Step 4: Apply filter to the final image
+    return pipeFilter(result, options.filter);
   } catch (error) {
     throw Error(
       `Failed to composite final image: ${error instanceof Error ? error.message : String(error)}`,
