@@ -12,6 +12,10 @@
   <a href="#license"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge"></a>
 </p>
 
+<p align="center">
+  <img width="100%" src="./docs/introduce.png" alt="FolderKit">
+</p>
+
 ## Introduction
 
 A modern, type-safe library for generating pixel-perfect macOS folder icons programmatically, featured with:
