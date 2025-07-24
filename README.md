@@ -5,9 +5,12 @@
 </div>
 
 <p align="center">
-  <a href= "https://github.com/biomejs/biome"><img alt="code style: biome" src="https://img.shields.io/badge/code_style-biome-70a2f3.svg"></a>
-  <a href= "https://github.com/vitest-dev/vitest"><img alt="tested with: vitest" src="https://img.shields.io/badge/tested_with-vitest-52730d.svg"></a>
-  <a href="#license"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+  <a href="https://www.npmjs.com/package/folderkit"><img src="https://img.shields.io/npm/v/folderkit.svg?style=for-the-badge&logo=npm" alt="npm version"></a>
+  <a href="https://github.com/stout-ni/folderkit/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/stout-ni/folderkit/ci.yml?style=for-the-badge&logo=github" alt="GitHub Actions status"></a>
+  <a href= "https://github.com/web-infra-dev/rslib"><img alt="build with: rslib" src="https://img.shields.io/badge/build_with-rslib-FF5E00.svg?style=for-the-badge"></a>
+  <a href= "https://github.com/vitest-dev/vitest"><img alt="tested with: vitest" src="https://img.shields.io/badge/tested_with-vitest-6E9F18.svg?style=for-the-badge&logo=vitest"></a>
+  <a href= "https://github.com/biomejs/biome"><img alt="code style: biome" src="https://img.shields.io/badge/code_style-biome-60A5FA.svg?style=for-the-badge&logo=biome"></a>
+  <a href="#license"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge"></a>
 </p>
 
 ## Introduction
