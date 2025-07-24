@@ -1,6 +1,8 @@
 {
   "name": "folio",
+  "description": "Pixel-perfect macOS folder icons generator for developers.",
   "version": "1.0.0",
+  "private": true,
   "type": "module",
   "exports": {
     ".": {
@@ -22,6 +24,9 @@
     "test": "vitest run",
     "prepare": "husky"
   },
+  "dependencies": {
+    "sharp": "^0.34.3"
+  },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
     "@commitlint/cli": "^19.8.1",
@@ -31,9 +36,5 @@
     "husky": "^9.1.7",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
-  },
-  "private": true,
-  "dependencies": {
-    "sharp": "^0.34.3"
   }
 }

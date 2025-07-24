@@ -1,4 +1,4 @@
-import type sharp from 'sharp';
+import type { SharpInput } from 'sharp';
 import {
   BOTTOM_BEZEL_COLOR,
   RESOLUTION_OFFSET_Y,
@@ -6,71 +6,118 @@ import {
   THEME_FILL_COLOR,
   TOP_BEZEL_COLOR,
 } from '@/constants';
-import {
-  blur,
-  composite,
-  extend,
-  negate,
-  resize,
-  tint,
-  translucent,
-  trim,
-} from '@/core/processors';
+import * as processors from '@/core/processors';
 import type { Options } from '@/types';
-import { pipeProcessors } from '@/utils';
+import { pipeProcessors, withErrorBoundary } from '@/utils';
 
 const FULL_MASK_WIDTH = 768;
 const FULL_MASK_HEIGHT = 384;
 
-export const pipeResizedMask = (
-  input: sharp.SharpInput,
-  { trim: shouldTrim, resolution }: Options,
+export const pipeResizedMask = async (
+  input: SharpInput,
+  { trim: shouldTrim, resolution }: Pick<Options, 'trim' | 'resolution'>,
 ) => {
-  const resolutionSize = RESOLUTION_SIZE[resolution];
-  const resolutionOffsetY = RESOLUTION_OFFSET_Y[resolution];
+  return withErrorBoundary(async () => {
+    const resolutionSize = RESOLUTION_SIZE[resolution];
+    if (!resolutionSize) {
+      throw Error(`Unsupported resolution: ${resolution}`);
+    }
 
-  const resizedWidth = Math.floor((resolutionSize * 3) / 4);
-  const resizedHeight = Math.floor(resolutionSize / 2);
+    const resizedWidth = Math.floor((resolutionSize * 3) / 4);
+    const resizedHeight = Math.floor(resolutionSize / 2);
+    const offsetY = RESOLUTION_OFFSET_Y[resolution] || 0;
 
-  return pipeProcessors(
-    input,
-    shouldTrim ? trim() : undefined,
-    resize({
-      width: FULL_MASK_WIDTH,
-      height: FULL_MASK_HEIGHT,
-      fit: 'contain',
-    }),
-    resize({ width: resizedWidth, height: resizedHeight, fit: 'contain' }),
-    extend({
-      top: (resolutionSize - resizedHeight) / 2 + resolutionOffsetY,
-      bottom: (resolutionSize - resizedHeight) / 2 - resolutionOffsetY,
-      left: (resolutionSize - resizedWidth) / 2,
-      right: (resolutionSize - resizedWidth) / 2,
-    }),
-  );
+    const centerOffset = (size: number, resized: number) =>
+      (size - resized) / 2;
+
+    try {
+      const result = await pipeProcessors(
+        input,
+        shouldTrim ? processors.trim() : undefined,
+        processors.resize({
+          width: FULL_MASK_WIDTH,
+          height: FULL_MASK_HEIGHT,
+          fit: 'contain',
+        }),
+        processors.resize({
+          width: resizedWidth,
+          height: resizedHeight,
+          fit: 'contain',
+        }),
+        processors.extend({
+          top: centerOffset(resolutionSize, resizedHeight) + offsetY,
+          bottom: centerOffset(resolutionSize, resizedHeight) - offsetY,
+          left: centerOffset(resolutionSize, resizedWidth),
+          right: centerOffset(resolutionSize, resizedWidth),
+        }),
+      );
+      return result;
+    } catch (error) {
+      throw Error(
+        `Failed to resize mask: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  });
 };
 
-export const pipeFilledMask = (input: sharp.SharpInput, { theme }: Options) =>
-  pipeProcessors(input, tint(THEME_FILL_COLOR[theme]), translucent(0.5));
-
-export const pipeTopBezelMask = (input: sharp.SharpInput, _options: Options) =>
-  pipeProcessors(
-    input,
-    negate(),
-    tint(TOP_BEZEL_COLOR),
-    blur({ step: 5, distance: 2, angle: 180 }),
-    composite({ input: input as Buffer, blend: 'dest-in' }),
-    translucent(0.6),
-  );
-
-export const pipeBottomBezelMask = (
-  input: sharp.SharpInput,
-  _options: Options,
+export const pipeFilledMask = (
+  input: SharpInput,
+  { theme }: Pick<Options, 'theme'>,
 ) =>
-  pipeProcessors(
-    input,
-    tint(BOTTOM_BEZEL_COLOR),
-    blur({ step: 5, distance: 1, angle: 180 }),
-    composite({ input: input as Buffer, blend: 'dest-out' }),
-    translucent(0.6),
-  );
+  withErrorBoundary(async () => {
+    const fillColor = THEME_FILL_COLOR[theme];
+    if (!fillColor) {
+      throw Error(`Unsupported theme: ${theme}`);
+    }
+
+    try {
+      const result = await pipeProcessors(
+        input,
+        processors.tint(fillColor),
+        processors.translucent(0.5),
+      );
+      return result;
+    } catch (error) {
+      throw Error(
+        `Failed to create filled mask: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  });
+
+export const pipeTopBezelMask = (input: SharpInput) =>
+  withErrorBoundary(async () => {
+    try {
+      const result = await pipeProcessors(
+        input,
+        processors.negate(),
+        processors.tint(TOP_BEZEL_COLOR),
+        processors.blur({ step: 5, distance: 2, angle: 180 }),
+        processors.composite({ input: input as Buffer, blend: 'dest-in' }),
+        processors.translucent(0.5),
+      );
+      return result;
+    } catch (error) {
+      throw Error(
+        `Failed to create top bezel mask: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  });
+
+export const pipeBottomBezelMask = (input: SharpInput) =>
+  withErrorBoundary(async () => {
+    try {
+      const result = await pipeProcessors(
+        input,
+        processors.tint(BOTTOM_BEZEL_COLOR),
+        processors.blur({ step: 5, distance: 1, angle: 180 }),
+        processors.composite({ input: input as Buffer, blend: 'dest-out' }),
+        processors.translucent(0.6),
+      );
+
+      return result;
+    } catch (error) {
+      throw Error(
+        `Failed to create bottom bezel mask: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  });

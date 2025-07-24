@@ -1,24 +1,22 @@
+import type { FolderTheme, Resolution } from '@/enums';
+
+/**
+ * Configuration options for generating folder icons.
+ */
 export interface Options {
+  /**
+   * Whether to trim transparent edges from the output image.
+   * @defaultValue `false`
+   */
   trim?: boolean;
+  /**
+   * The visual theme to use for the folder icon.
+   * @see {@link FolderTheme} for available theme options
+   */
   theme: FolderTheme;
+  /**
+   * The output resolution of the generated icon.
+   * @see {@link Resolution} for available resolution options
+   */
   resolution: Resolution;
-}
-
-export enum Resolution {
-  NonRetina16 = '16x16',
-  Retina16 = '16x16@2x',
-  NonRetina32 = '32x32',
-  Retina32 = '32x32@2x',
-  NonRetina128 = '128x128',
-  Retina128 = '128x128@2x',
-  NonRetina256 = '256x256',
-  Retina256 = '256x256@2x',
-  NonRetina512 = '512x512',
-  Retina512 = '512x512@2x',
-}
-
-export enum FolderTheme {
-  Tahoe = 'GenericFolderIcon.Tahoe',
-  BigSurLight = 'GenericFolderIcon.BigSur',
-  BigSurDark = 'GenericFolderIcon.BigSur.dark',
 }
