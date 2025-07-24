@@ -35,7 +35,8 @@
     "build": "rslib build",
     "dev": "rslib build --watch",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "rslib build"
   },
   "dependencies": {
     "sharp": "^0.34.3"
