@@ -5,10 +5,12 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/folderkit"><img src="https://img.shields.io/npm/v/folderkit.svg?style=for-the-badge&logo=npm" alt="npm version"></a>
-  <a href="https://github.com/stout-ni/folderkit/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/stout-ni/folderkit/ci.yml?style=for-the-badge&logo=github" alt="GitHub Actions status"></a>
+  <a href="https://www.npmjs.com/package/folderkit"><img src="https://img.shields.io/bundlejs/size/folderkit?style=for-the-badge" alt="npm gzipped size"></a>
+  <a href="https://github.com/stout-ni/folderkit/actions/workflows/ci.yml"><img src="https://img.shields.io/github/check-runs/stout-ni/folderkit/main?style=for-the-badge&logo=github" alt="GitHub Checks status"></a>
   <a href= "https://github.com/web-infra-dev/rslib"><img alt="build with: rslib" src="https://img.shields.io/badge/build_with-rslib-FF5E00.svg?style=for-the-badge"></a>
   <a href= "https://github.com/vitest-dev/vitest"><img alt="tested with: vitest" src="https://img.shields.io/badge/tested_with-vitest-6E9F18.svg?style=for-the-badge&logo=vitest"></a>
   <a href= "https://github.com/biomejs/biome"><img alt="code style: biome" src="https://img.shields.io/badge/code_style-biome-60A5FA.svg?style=for-the-badge&logo=biome"></a>
+  <a href="https://github.com/lovell/sharp"><img alt="with: sharp" src="https://img.shields.io/github/package-json/dependency-version/stout-ni/folderkit/sharp?filename=packages%2Ffolderkit%2Fpackage.json&style=for-the-badge&logo=sharp&label=with%20sharp"></a>
   <a href="#license"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge"></a>
 </p>
 
