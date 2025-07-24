@@ -7,7 +7,7 @@ import { FolderTheme, generate, type Resolution } from '@/index';
 const EXAMPLES_DIR = path.resolve('examples');
 const DEFAULT_EXAMPLE_PATH = path.resolve(EXAMPLES_DIR, 'apple.png');
 
-describe('folio', () => {
+describe('folderkit', () => {
   describe('success cases', () => {
     it('should generate a folder icon with default options', async () => {
       const expectedWidth = 256;
