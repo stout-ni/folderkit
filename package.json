@@ -1,58 +1,28 @@
 {
-  "name": "folderkit",
-  "version": "0.1.0",
-  "description": "Pixel-perfect macOS folder icons generator for developers.",
-  "keywords": [
-    "macOS",
-    "folder",
-    "icon"
-  ],
-  "homepage": "https://github.com/stout-ni/folderkit#readme",
-  "bugs": {
-    "url": "https://github.com/stout-ni/folderkit/issues"
-  },
-  "license": "MIT",
-  "author": "Stout Ni <stout.officejob@gmail.com>",
+  "name": "root",
+  "private": true,
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
   },
-  "main": "./dist/index.cjs",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/stout-ni/folderkit.git"
   },
   "scripts": {
-    "build": "rslib build",
+    "build": "pnpm -r --filter='./packages/*' run build",
     "check": "biome check --write",
-    "dev": "rslib build --watch",
     "format": "biome format --write",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "prepare": "husky"
-  },
-  "dependencies": {
-    "sharp": "^0.34.3"
+    "test": "pnpm -r --filter='./packages/*' run test"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@rslib/core": "^0.11.0",
-    "@types/jest-image-snapshot": "^6.4.0",
+    "@commitlint/config-pnpm-scopes": "^19.8.1",
     "@types/node": "^22.16.5",
-    "@vitest/coverage-v8": "3.2.4",
     "husky": "^9.1.7",
-    "jest-image-snapshot": "^6.5.1",
-    "typescript": "^5.8.3",
-    "vitest": "^3.2.4"
-  }
+    "typescript": "^5.8.3"
+  },
+  "packageManager": "pnpm@8.9.0"
 }
