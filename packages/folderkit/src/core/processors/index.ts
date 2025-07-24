@@ -1,6 +1,7 @@
 export * from './blur';
 export * from './composite';
 export * from './extend';
+export * from './modulate';
 export * from './negate';
 export * from './resize';
 export * from './tint';

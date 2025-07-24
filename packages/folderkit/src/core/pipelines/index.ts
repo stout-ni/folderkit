@@ -7,7 +7,7 @@ import {
   TOP_BEZEL_COLOR,
 } from '@/constants';
 import * as processors from '@/core/processors';
-import type { Options } from '@/types';
+import type { Filter, Options } from '@/types';
 import { pipeProcessors, withErrorBoundary } from '@/utils';
 
 const FULL_MASK_WIDTH = 768;
@@ -120,4 +120,16 @@ export const pipeBottomBezelMask = (input: SharpInput) =>
         `Failed to create bottom bezel mask: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
+  });
+
+export const pipeFilter = (input: SharpInput, filterOptions: Partial<Filter>) =>
+  withErrorBoundary(async () => {
+    const tintFilterProcessors = filterOptions.tintColor
+      ? [
+          processors.modulate({ saturation: 0.1 }),
+          processors.tint(filterOptions.tintColor, 'overlay'),
+        ]
+      : [];
+
+    return await pipeProcessors(input, ...tintFilterProcessors);
   });
