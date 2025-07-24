@@ -1,8 +1,18 @@
 {
   "name": "folderkit",
+  "version": "0.1.0",
   "description": "Pixel-perfect macOS folder icons generator for developers.",
-  "version": "1.0.0",
-  "private": true,
+  "keywords": [
+    "macOS",
+    "folder",
+    "icon"
+  ],
+  "homepage": "https://github.com/stout-ni/folderkit#readme",
+  "bugs": {
+    "url": "https://github.com/stout-ni/folderkit/issues"
+  },
+  "license": "MIT",
+  "author": "Stout Ni <stout.officejob@gmail.com>",
   "type": "module",
   "exports": {
     ".": {
@@ -16,6 +26,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stout-ni/folderkit.git"
+  },
   "scripts": {
     "build": "rslib build",
     "check": "biome check --write",
