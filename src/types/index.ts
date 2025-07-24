@@ -6,7 +6,7 @@ import type { FolderTheme, Resolution } from '@/enums';
 export interface Options {
   /**
    * Whether to trim transparent edges from the output image.
-   * @defaultValue `false`
+   * @defaultValue `true`
    */
   trim?: boolean;
   /**

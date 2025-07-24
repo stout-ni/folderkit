@@ -15,6 +15,7 @@ import {
 } from '@/utils';
 
 const DEFAULT_OPTIONS: Readonly<Options> = Object.freeze({
+  trim: true,
   theme: FolderTheme.BigSurLight,
   resolution: Resolution.NonRetina256,
 });
@@ -35,7 +36,7 @@ const DEFAULT_OPTIONS: Readonly<Options> = Object.freeze({
  * const icon = await generate(inputBuffer, {
  *   theme: FolderTheme.BigSurDark,
  *   resolution: Resolution.Retina512,
- *   trim: true
+ *   trim: false
  * });
  *
  * @example
