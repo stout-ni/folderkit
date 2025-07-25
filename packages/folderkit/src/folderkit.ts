@@ -1,22 +1,13 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import type { SharpInput } from 'sharp';
-import {
-  pipeBottomBezelMask,
-  pipeFilledMask,
-  pipeFilter,
-  pipeResizedMask,
-  pipeTopBezelMask,
-} from '@/core/pipelines';
-import { composite } from '@/core/processors';
+import { DEFAULT_ICNS_FILENAME } from '@/constants';
+import { processImage, validateIconSetOptions, validateOptions } from '@/core';
 import { FolderTheme, Resolution } from '@/enums';
-import type { Options } from '@/types';
-import {
-  getFolderResourcePath,
-  pipeProcessors,
-  withErrorBoundary,
-} from '@/utils';
+import type { IconSetOptions, Options } from '@/types';
+import { bold, withErrorBoundary } from '@/utils';
 
 const DEFAULT_OPTIONS: Readonly<Options> = Object.freeze({
-  trim: true,
   theme: FolderTheme.BigSurLight,
   filter: {},
   resolution: Resolution.NonRetina256,
@@ -62,58 +53,46 @@ export const generate = (
 
   return withErrorBoundary(async () => {
     // Validate options and resources
-    await validateOptions(options);
+    validateOptions(options);
 
     // Process the image through the pipeline
     return await processImage(input, options);
   });
 };
 
-const validateOptions = async (options: Options) => {
-  if (!Object.values(Resolution).includes(options.resolution)) {
-    throw Error(`Unsupported resolution: ${options.resolution}`);
-  }
-
-  if (!Object.values(FolderTheme).includes(options.theme)) {
-    throw Error(`Unsupported theme: ${options.theme}`);
-  }
-};
-
-const processImage = async (
+export const generateIconSet = (
   input: SharpInput,
-  options: Options,
-): Promise<Buffer> => {
-  // Step 1: Resize the input mask
-  const resizedMask = await pipeResizedMask(input, options);
+  output: string,
+  passedOptions: Partial<IconSetOptions> = {},
+) => {
+  if (path.extname(output) !== '.iconset') {
+    output += '.iconset';
+  }
 
-  // Step 2: Process masks in parallel
-  const [filledMask, topBezelMask, bottomBezelMask] = await Promise.all([
-    // Applies theme color and opacity to create a filled mask
-    pipeFilledMask(resizedMask, options),
-    // Creates a top bezel effect with blur and tint
-    pipeTopBezelMask(resizedMask),
-    // Creates a bottom bezel effect with blur and tint
-    pipeBottomBezelMask(resizedMask),
-  ]);
+  const { resolution: _resolution, ...defaultOptions } = DEFAULT_OPTIONS;
+  const options: IconSetOptions = { ...defaultOptions, ...passedOptions };
 
-  // Step 3: Composite the final image
-  const resourcePath = getFolderResourcePath(options);
+  return withErrorBoundary(async () => {
+    validateIconSetOptions({ ...options, output });
 
-  try {
-    const result = await pipeProcessors(
-      resourcePath,
-      composite(
-        { input: filledMask },
-        { input: topBezelMask },
-        { input: bottomBezelMask },
+    fs.mkdirSync(output, { recursive: true });
+
+    await Promise.all(
+      Object.values(Resolution).map(async (resolution) =>
+        fs.writeFileSync(
+          path.join(output, `icon_${resolution}.png`),
+          await generate(input, { ...options, resolution }),
+        ),
       ),
     );
 
-    // Step 4: Apply filter to the final image
-    return pipeFilter(result, options.filter);
-  } catch (error) {
-    throw Error(
-      `Failed to composite final image: ${error instanceof Error ? error.message : String(error)}`,
+    const icnsPath = path.join(output, '..', DEFAULT_ICNS_FILENAME);
+    console.log(`Iconset generated at: ${output}`);
+    console.log(
+      'To convert the iconset to an .icns file, run the following command:',
     );
-  }
+    console.log(
+      bold(`\n    iconutil --convert icns ${output} --output ${icnsPath}\n`),
+    );
+  });
 };

@@ -15,9 +15,9 @@ const FULL_MASK_HEIGHT = 384;
 
 export const pipeResizedMask = async (
   input: SharpInput,
-  { trim: shouldTrim, resolution }: Pick<Options, 'trim' | 'resolution'>,
-) => {
-  return withErrorBoundary(async () => {
+  { trim: shouldTrim = true, resolution }: Pick<Options, 'trim' | 'resolution'>,
+) =>
+  withErrorBoundary(async () => {
     const resolutionSize = RESOLUTION_SIZE[resolution];
     if (!resolutionSize) {
       throw Error(`Unsupported resolution: ${resolution}`);
@@ -58,7 +58,6 @@ export const pipeResizedMask = async (
       );
     }
   });
-};
 
 export const pipeFilledMask = (
   input: SharpInput,

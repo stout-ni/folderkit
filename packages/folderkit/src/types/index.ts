@@ -1,6 +1,8 @@
 import type { Color } from 'sharp';
 import type { FolderTheme, Resolution } from '@/enums';
 
+export type IconSetOptions = Omit<Options, 'resolution'>;
+
 /**
  * Configuration options for generating folder icons.
  */

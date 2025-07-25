@@ -1,6 +1,6 @@
 // Enums and constants
 export * from './enums';
 // Core functionality
-export { generate, generate as default } from './folderkit';
+export { generate, generateIconSet } from './folderkit';
 // Type exports
 export type * from './types';

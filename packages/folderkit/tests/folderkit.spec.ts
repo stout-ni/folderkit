@@ -1,13 +1,18 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
-import { describe, expect, it } from 'vitest';
-import { FolderTheme, generate, type Resolution } from '@/index';
+import { beforeEach, describe, expect, it } from 'vitest';
+import {
+  FolderTheme,
+  generate,
+  generateIconSet,
+  type Resolution,
+} from '@/index';
 
 const EXAMPLES_DIR = path.resolve('examples');
 const DEFAULT_EXAMPLE_PATH = path.resolve(EXAMPLES_DIR, 'apple.png');
 
-describe('folderkit', () => {
+describe('generate', () => {
   describe('success cases', () => {
     it('should generate a folder icon with default options', async () => {
       const expectedWidth = 256;
@@ -70,6 +75,20 @@ describe('folderkit', () => {
       });
 
       await expect(tintResult).toMatchImageSnapshot();
+    });
+  });
+});
+
+describe('generateIconSet', () => {
+  const DEFAULT_ICONSET_PATH = path.resolve('tests/test.iconset');
+
+  describe('success cases', () => {
+    beforeEach(() => {
+      fs.rmSync(DEFAULT_ICONSET_PATH, { recursive: true, force: true });
+    });
+
+    it('should generate an iconset with default options', async () => {
+      await generateIconSet(DEFAULT_EXAMPLE_PATH, DEFAULT_ICONSET_PATH);
     });
   });
 });
