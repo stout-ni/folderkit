@@ -14,7 +14,7 @@ const DEFAULT_OPTIONS: Readonly<Options> = Object.freeze({
 });
 
 /**
- * Generates a folder icon with the specified options.
+ * Generates a folder icon in native macOS style from the specified input image.
  *
  * @param input - Input image (Buffer, Uint8Array, or file path) to be used as the folder icon
  * @param options - Generation options including theme and resolution
@@ -60,11 +60,31 @@ export const generate = (
   });
 };
 
+/**
+ * Generates a complete icon set (.iconset folder) for macOS from the specified input image.
+ *
+ * @param input - Input image (Buffer, Uint8Array, or file path) to be used as the folder icon
+ * @param output - Output directory path for the generated .iconset (will be created if it does not exist)
+ * @param passedOptions - Optional icon set generation options including theme and trim
+ * @returns Promise that resolves when the icon set has been generated
+ *
+ * @example
+ * // Basic usage with default options
+ * await generateIconSet(inputBuffer, 'MyFolder.iconset');
+ *
+ * @example
+ * // Custom theme and options
+ * await generateIconSet(inputBuffer, 'Custom.iconset', {
+ *   theme: FolderTheme.BigSurDark,
+ *   trim: false
+ * });
+ */
 export const generateIconSet = (
   input: SharpInput,
   output: string,
   passedOptions: Partial<IconSetOptions> = {},
 ) => {
+  // Ensure the output directory has the .iconset extension
   if (path.extname(output) !== '.iconset') {
     output += '.iconset';
   }
@@ -73,19 +93,22 @@ export const generateIconSet = (
   const options: IconSetOptions = { ...defaultOptions, ...passedOptions };
 
   return withErrorBoundary(async () => {
+    // Validate icon set options and output path
     validateIconSetOptions({ ...options, output });
 
     fs.mkdirSync(output, { recursive: true });
 
+    // Generate PNG icons for each supported resolution and write them to the iconset directory
     await Promise.all(
       Object.values(Resolution).map(async (resolution) =>
         fs.writeFileSync(
           path.join(output, `icon_${resolution}.png`),
-          await generate(input, { ...options, resolution }),
+          await processImage(input, { ...options, resolution }),
         ),
       ),
     );
 
+    // Print instructions for converting the iconset to an .icns file
     const icnsPath = path.join(output, '..', DEFAULT_ICNS_FILENAME);
     console.log(`Iconset generated at: ${output}`);
     console.log(

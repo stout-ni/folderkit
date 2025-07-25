@@ -1,6 +1,11 @@
 import type { Color } from 'sharp';
 import type { FolderTheme, Resolution } from '@/enums';
 
+/**
+ * Configuration options for generating a complete icon set (.iconset folder) for macOS.
+ * This type omits the 'resolution' property from {@link Options} since all required resolutions are generated.
+ * @see {@link Options} for the base configuration options
+ */
 export type IconSetOptions = Omit<Options, 'resolution'>;
 
 /**
