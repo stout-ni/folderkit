@@ -10,7 +10,7 @@
     "url": "git+https://github.com/stout-ni/folderkit.git"
   },
   "scripts": {
-    "prepack": "husky",
+    "prepare": "husky",
     "build": "pnpm -r --filter='./packages/*' run build",
     "check": "biome check --write",
     "format": "biome format --write",

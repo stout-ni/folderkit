@@ -37,3 +37,5 @@ export const THEME_FILL_COLOR: Record<FolderTheme, Color> = {
   [FolderTheme.BigSurLight]: { r: 8, g: 134, b: 206 },
   [FolderTheme.BigSurDark]: { r: 6, g: 111, b: 194 },
 };
+
+export const DEFAULT_ICNS_FILENAME = 'GenericFolderIcon.icns';

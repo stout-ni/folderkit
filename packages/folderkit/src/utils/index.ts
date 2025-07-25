@@ -3,8 +3,15 @@ import sharp from 'sharp';
 import type { Options } from '@/types';
 import type { Processor } from '@/types/processor';
 
-export const FOLDER_RESOURCE_DIR = path.resolve('src/resources/folders');
-export const BADGE_RESOURCE_DIR = path.resolve('src/resources/badge');
+const FOLDER_RESOURCE_DIR = path.resolve('src/resources/folders');
+
+export const bold = (s: string) => `\x1b[1m${s}\x1b[0m`;
+
+export const getFolderResourcePath = ({
+  theme,
+  resolution,
+}: Pick<Options, 'theme' | 'resolution'>): string =>
+  path.join(FOLDER_RESOURCE_DIR, `${theme}.iconset`, `icon_${resolution}.png`);
 
 export const pipeProcessors = async (
   input: sharp.SharpInput,
@@ -22,12 +29,6 @@ export const pipeProcessors = async (
     sharp(input).toBuffer(),
   );
 };
-
-export const getFolderResourcePath = ({
-  theme,
-  resolution,
-}: Pick<Options, 'theme' | 'resolution'>): string =>
-  path.join(FOLDER_RESOURCE_DIR, `${theme}.iconset`, `icon_${resolution}.png`);
 
 export const withErrorBoundary = <T>(fn: () => Promise<T>): Promise<T> => {
   try {

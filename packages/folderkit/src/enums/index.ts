@@ -24,9 +24,9 @@ export enum Resolution {
  */
 export enum FolderTheme {
   /** Generic folder icon style */
-  Tahoe = 'GenericFolderIcon.Tahoe',
+  Tahoe = 'Tahoe',
   /** MacOS Big Sur style (light variant) */
-  BigSurLight = 'GenericFolderIcon.BigSur',
+  BigSurLight = 'BigSur',
   /** MacOS Big Sur style (dark variant) */
-  BigSurDark = 'GenericFolderIcon.BigSur.dark',
+  BigSurDark = 'BigSur.dark',
 }
