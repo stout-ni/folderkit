@@ -1,9 +1,8 @@
 import path from 'node:path';
 import sharp from 'sharp';
+import { RESOURCE_DIR } from '@/constants';
 import type { Options } from '@/types';
 import type { Processor } from '@/types/processor';
-
-const FOLDER_RESOURCE_DIR = path.resolve('src/resources/folders');
 
 export const bold = (s: string) => `\x1b[1m${s}\x1b[0m`;
 
@@ -11,7 +10,7 @@ export const getFolderResourcePath = ({
   theme,
   resolution,
 }: Pick<Options, 'theme' | 'resolution'>): string =>
-  path.join(FOLDER_RESOURCE_DIR, `${theme}.iconset`, `icon_${resolution}.png`);
+  path.join(RESOURCE_DIR, `folders/${theme}.iconset`, `icon_${resolution}.png`);
 
 export const pipeProcessors = async (
   input: sharp.SharpInput,
