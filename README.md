@@ -29,13 +29,9 @@ A modern, type-safe library for generating pixel-perfect macOS folder icons prog
 
 > This project was inspired by [lgarron/folderify](https://github.com/lgarron/folderify), but rebuilt from the ground up with modern JavaScript/TypeScript practices and additional features.
 
-## Installation
+## Documentation
 
-```bash
-npm install folderkit
-```
-
-[Read the docs](docs/get-started.md) for any further information.
+[Read the docs](https://folderkit.vercel.app/docs) for any further information.
 
 ## License
 
