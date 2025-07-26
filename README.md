@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="120" src="./docs/logo.svg">
+  <img width="120" src="./docs/public/logo.svg">
   <h1 align="center">FolderKit</h1>
 </div>
 
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <img width="100%" src="./docs/introduce.png" alt="FolderKit">
+  <img width="100%" src="./docs/public/banner.png" alt="FolderKit">
 </p>
 
 ## Introduction

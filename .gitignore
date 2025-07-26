@@ -2,7 +2,7 @@
 .DS_Store
 *.local
 *.log*
-Icon
+Icon?
 
 # Dist
 node_modules

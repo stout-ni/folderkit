@@ -2,5 +2,13 @@
   "version": "0.2",
   "language": "en",
   "dictionaries": ["typescript", "node"],
-  "words": ["folderkit", "rslib", "iconset", "icns", "iconutil"]
+  "words": [
+    "folderkit",
+    "rslib",
+    "iconset",
+    "icns",
+    "iconutil",
+    "vercel",
+    "pagefind"
+  ]
 }

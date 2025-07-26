@@ -1,0 +1,80 @@
+# Generating Your First Icon
+
+This guide will walk you through the fundamental steps of using FolderKit to generate your first macOS-style folder icon. We will start with a basic example and then explore how to combine various options to achieve custom results.
+
+You will need an image file to serve as the inner icon. For this guide, we will assume you have an image named `apple.png` in your project directory. You can use the [example image](https://github.com/stout-ni/folderkit/blob/main/packages/folderkit/examples/apple.png) from the repository for this.
+
+## Basic Icon Generation
+
+The most direct way to create an icon is by using the `generate` function. This function takes your source image and produces a PNG image buffer of the final icon with default settings.
+
+The following script demonstrates how to:
+
+1.  Pass the image to the `generate` function.
+2.  Save the resulting icon buffer to a new `.png` file.
+
+```javascript filename="index.js"
+import { promises as fs } from "node:fs";
+import { generate } from "folderkit";
+
+// 1. Generate the icon using default options
+const outputBuffer = await generate("apple.png");
+// 2. Save the generated icon
+await fs.writeFile("apple-folder-icon.png", outputBuffer);
+```
+
+After running this script, you will get a new file named `apple-folder-icon.png`. This icon uses the default theme (`BigSurLight`) and resolution (`256x256`).
+
+## Changing Theme and Resolution
+
+The most basic customization is to alter the icon's visual style and size. You can combine the `theme` and `resolution` options to match your specific design requirements.
+
+For example, to create a high-resolution icon with a dark, modern look, you can use the `BigSurDark` theme with the `Retina512` resolution.
+
+```javascript
+import { generate, FolderTheme, Resolution } from "folderkit";
+
+const customIcon = await generate("apple.png", {
+  theme: FolderTheme.BigSurDark, // Use the Big Sur dark theme
+  resolution: Resolution.Retina512, // Use a 512x512 retina resolution
+});
+```
+
+If you prefer a more classic look, you can switch to the `Tahoe` theme.
+
+```javascript
+const tahoeIcon = await generate("apple.png", {
+  theme: FolderTheme.Tahoe,
+  resolution: Resolution.NonRetina128,
+});
+```
+
+## Fine-Tuning the Fit with `trim`
+
+The `trim` option controls how your source image is placed inside the folder template. By default, `trim` is set to `true`, which automatically removes any transparent space around your image, making it fit snugly within the folder's content area.
+
+If your source image already has intentional padding that you wish to preserve, you can set `trim` to `false`.
+
+```javascript
+const paddedIcon = await generate("apple.png", {
+  trim: false, // Disables auto-trimming to preserve original padding
+});
+```
+
+This gives you more control over the final composition, especially when working with pre-designed assets.
+
+## Applying Color Overlays with `filter`
+
+The `filter.tintColor` option allows you to apply a color overlay to the final icon, which is perfect for branding or creating monochrome effects.
+
+Let's generate a gray-toned icon by applying a black tint. This is useful for creating disabled or inactive state icons.
+
+```javascript
+const tintedIcon = await generate("apple.png", {
+  filter: {
+    tintColor: "#808080", // Apply a gray tint
+  },
+});
+```
+
+This powerful option can be combined with any theme, allowing you to create a consistent set of icons that match your application's color palette.

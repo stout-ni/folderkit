@@ -1,0 +1,72 @@
+import { Steps } from "nextra/components";
+
+# How to Apply Your Custom Icons on macOS
+
+After generating an icon with FolderKit, the final step is to apply it to a folder on your Mac. The process is straightforward but differs slightly depending on whether you are using a single `.png` file or a complete `.icns` file.
+
+## Using Copy and Paste
+
+<Steps>
+### Open and Copy the Image
+
+Locate your generated `.png` icon file and open it in the **Preview** app.
+
+Once the image is open, select the entire image by pressing `Cmd + A`. Then, copy it to the clipboard by pressing `Cmd + C`.
+
+### Select the Target Folder Icon
+
+In Finder, click to select the folder whose icon you want to change.
+
+With the folder selected, open the "Get Info" window by pressing `Cmd + I` or by right-clicking and choosing "Get Info".
+
+In the top-left corner of the "Get Info" window, click on the small folder icon. A blue highlight will appear around it, indicating it's selected.
+
+### Paste the New Icon
+
+Press `Cmd + V` to paste the image from your clipboard. The folder's icon will update immediately.
+
+</Steps>
+
+You can access [Apple Support: Change icons for files or folders on Mac](https://support.apple.com/guide/mac-help/mchlp2313/mac) for more specific instructions.
+
+> [!WARNING]
+>
+> When you paste image data from the clipboard, macOS creates the necessary icon resources and stores them in a hidden `Icon?` file inside the folder.
+>
+> Therefore, if you are working within a Git repository, **remember to add `Icon?` to your `.gitignore` file to avoid committing it**.
+
+## Revert to Default Icon
+
+If you want to remove a custom icon and restore the default blue folder icon, the process is simple.
+
+<Steps>
+### Select the Folder Icon
+In Finder, select the folder with the custom icon.
+
+Open the "Get Info" window (`Cmd + I`).
+
+Click the custom icon in the top-left corner of the "Get Info" window to select it.
+
+### Cut the Icon
+
+In the menu bar, choose **Edit > Cut** or press `Cmd + X`. The custom icon will be removed, and the original system default will reappear immediately.
+
+</Steps>
+
+For users comfortable with handling hidden files, you can directly delete the `Icon?` file.
+
+<Steps>
+### Navigate to the Folder
+Open the folder containing the custom icon in Finder.
+
+### Show Hidden Files
+
+Press `Cmd + Shift + .` (period) to toggle the visibility of hidden files.
+
+### Delete the File
+
+You will see a semi-transparent file named `Icon?`. Delete this file.
+
+The folder's icon will revert to the default immediately. You can press `Cmd + Shift + .` again to hide the hidden files.
+
+</Steps>

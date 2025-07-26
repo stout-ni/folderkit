@@ -1,0 +1,53 @@
+# Creating a Complete macOS Icon Set
+
+While single icons are useful, macOS applications require a complete icon set to ensure they display correctly across different contexts and display resolutions. This guide explains how to use FolderKit to generate a standard `.iconset` directory, the first step in creating a native `.icns` file.
+
+## The `.icns` Format and Resolutions
+
+> The Apple Icon Image format (`.icns`) is a container file format that bundles multiple image resources into a single file. This allows macOS to select the most appropriate image for different display contexts, such as the Finder, the Dock, or application launchers, ensuring clarity at any size.
+
+To support this, icons must be provided in a range of standard sizes, including both standard (1x) and high-resolution Retina (2x) variants. The required sizes typically range from 16x16 up to 512x512 pixels (or 1024x1024 for App Store assets). For more details, please refer to [Apple Icon Image format](https://en.wikipedia.org/wiki/Apple_Icon_Image_format).
+
+FolderKit automates the tedious part of this process: generating all the necessary individual PNG files from your source image, correctly sized and named according to Apple's specifications.
+
+## Using `generateIconSet`
+
+The `generateIconSet` function is designed specifically for this purpose. It creates a directory, populates it with all the required icon files, and prepares it for the final conversion step.
+
+The script below demonstrates how to call `generateIconSet` to create a `.iconset` directory.
+
+```javascript filename="create-iconset.js"
+import { generateIconSet, FolderTheme } from "folderkit";
+
+await generateIconSet("apple.png", "GenericFolderIcon.iconset", {
+  theme: FolderTheme.Tahoe,
+});
+```
+
+When you run this script, FolderKit will create a new directory named `GenericFolderIcon.iconset` and fill it with all required PNG variants.
+
+## Converting to `.icns`
+
+Creating the `.iconset` directory is the first part of the process. The final step is to convert this directory into a single, deployable `.icns` file using Apple's native **`iconutil`** command-line tool.
+
+> [!IMPORTANT]
+>
+> `iconutil` is a specialized tool available on macOS, used for handling `.icns` files and icon sets. It is a part of the macOS operating system and therefore **cannot be directly installed or run on other operating systems**.
+
+As instructed by the console output from FolderKit, run the following command in your terminal to complete the conversion:
+
+```bash filename="Terminal" copy
+iconutil --convert icns MyCoolApp.iconset
+```
+
+This command will create a file named `MyCoolApp.icns` in the same parent directory. This `.icns` file is the final artifact that you can assign to a folder or include in a macOS application bundle.
+
+### What is the difference between using a `.png` file and an `.icns` file to set a folder icon?
+
+The primary difference lies in quality and format.
+
+- **`.icns`** is the native macOS icon format. It acts as a **container** that holds multiple versions of the icon at various pre-rendered resolutions (e.g., 16x16, 512x512, and their Retina @2x variants). When you use an `.icns` file, macOS can select the perfect, pixel-perfect image for any display context, ensuring maximum clarity and sharpness. This is the professional standard for application and system icons.
+
+- **`.png`** is a standard single-image format. When you use a `.png` to set a folder icon, macOS takes that single, high-resolution image and **automatically generates** the smaller sizes it needs. While convenient, this automated downscaling can sometimes result in a loss of detail or sharpness, especially at very small sizes.
+
+**In summary**: Use `.icns` for the best possible quality in all situations. Use `.png` for quick, convenient customizations where minor quality differences are acceptable.
