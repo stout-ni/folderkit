@@ -1,5 +1,12 @@
+import path from 'node:path';
+import url from 'node:url';
 import type { Color } from 'sharp';
 import { FolderTheme, Resolution } from '@/enums';
+
+export const RESOURCE_DIR = path.resolve(
+  path.dirname(url.fileURLToPath(import.meta.url)),
+  'resources',
+);
 
 const RETINA_SCALE = 2;
 
