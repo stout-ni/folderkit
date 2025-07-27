@@ -1,0 +1,103 @@
+import { Callout } from "nextra/components";
+
+# Integrate with Simple Icons
+
+To make creating branded folder icons even easier, FolderKit now offers a dynamic API endpoint that integrates with the extensive [Simple Icons](https://simpleicons.org/) library. You can now generate a folder icon for thousands of popular brands simply by visiting a URL.
+
+**The base URL for the API is: `https://folderkit.vercel.app/api/`**.
+
+### Basic Usage
+
+The most basic way to use the API is to append an icon's slug to the base URL. The slug should match the name found on the Simple Icons website (e.g., `typescript`, `visualstudiocode`, `nextdotjs`).
+
+For example, to generate a folder icon with the TypeScript logo, you can use the following URL:
+
+```text
+https://folderkit.vercel.app/api/typescript
+```
+
+<div className="flex justify-center">
+  <img align="center" src="https://folderkit.vercel.app/api/typescript" alt="TypeScript Folder Icon" width="128" />
+</div>
+
+This will generate an icon using the default options: the `BigSurLight` theme and a `256x256` resolution.
+
+### Customization via Query Parameters
+
+The real power of this API comes from its support for query parameters, allowing you to customize the icon's appearance on the fly.
+
+#### Changing the Theme
+
+You can specify a folder theme using the `theme` parameter.
+
+- **Example (Dark Theme)**:
+
+  ```text
+  https://folderkit.vercel.app/api/react?theme=BigSur.dark
+  ```
+
+  <div className="flex justify-center">
+    <img src="https://folderkit.vercel.app/api/react?theme=BigSur.dark" alt="React Folder Icon Dark" width="128" />
+  </div>
+
+- **Example (Tahoe Theme)**:
+
+  ```text
+  https://folderkit.vercel.app/api/react?theme=Tahoe
+  ```
+
+  <div className="flex justify-center">
+    <img src="https://folderkit.vercel.app/api/react?theme=Tahoe" alt="React Folder Icon Tahoe" width="128" />
+  </div>
+
+#### Applying Brand Color
+
+A special feature of this API is the ability to automatically tint the folder icon with the official brand color from Simple Icons. To enable this, add the `brand=true` parameter.
+
+- **Example (With Brand Color)**:
+
+  ```text
+  [https://folderkit.vercel.app/api/vite?brand=true](https://folderkit.vercel.app/api/vite?brand=true)
+  ```
+
+  <div className="flex justify-center">
+    <img src="https://folderkit.vercel.app/api/vite?brand=true" alt="Vite Folder Icon with Brand Color" width="128" />
+  </div>
+
+This automatically extracts the brand's hex code (`#646CFF` for Vite) and applies it as a `tintColor` filter, creating a beautifully branded folder icon.
+
+#### Adjusting the Resolution
+
+You can request a specific size using the `resolution` parameter.
+
+- **Example (High Resolution)**:
+
+  ```text
+  https://folderkit.vercel.app/api/pnpm?resolution=Retina512
+  ```
+
+  <div className="flex justify-center">
+    <img
+      src="https://folderkit.vercel.app/api/pnpm?resolution=Retina512"
+      alt="pnpm Folder Icon High Resolution"
+      width="128"
+    />
+  </div>
+
+The default resolution is `NonRetina256` (256x256) if not specified.
+
+### Combining Options
+
+You can combine all parameters to generate a fully customized icon. Here is an example that creates a high-resolution, dark-themed, brand-colored icon for Next.js:
+
+```text
+https://folderkit.vercel.app/api/nextdotjs?theme=BigSur.dark&brand=true&resolution=Retina512
+```
+
+<div className="flex justify-center">
+  <img
+    src="https://folderkit.vercel.app/api/nextdotjs?theme=BigSur.dark&brand=true&resolution=Retina512"
+    alt="Custom Next.js Folder Icon"
+    width="128"
+  />
+</div>

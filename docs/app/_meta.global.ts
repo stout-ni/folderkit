@@ -10,6 +10,7 @@ export default {
         title: 'Guides',
       },
       'first-icon': 'First Icon',
+      'preset-icons': 'Preset Icons',
       'icon-set': 'Icon Set',
       'apply-icons': 'Apply Icons',
       _: {

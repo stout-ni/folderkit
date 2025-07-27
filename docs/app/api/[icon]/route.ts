@@ -13,7 +13,7 @@ type QueryParams = {
 
 export const GET = async (
   request: NextRequest,
-  { params }: { params: { icon: string } },
+  { params }: { params: Promise<{ icon: string }> },
 ) => {
   try {
     const { icon } = await params;
@@ -46,7 +46,7 @@ export const GET = async (
       headers: {
         'Content-Type': 'image/png',
         'Content-Length': buffer.length.toString(),
-        'Cache-Control': 'public, max-age=31536000, immutable',
+        'Cache-Control': 'public, max-age=86400, immutable',
       },
     });
   } catch (error) {
