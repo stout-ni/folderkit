@@ -21,16 +21,16 @@ export interface Options {
    * The visual theme to use for the folder icon.
    * @see {@link FolderTheme} for available theme options
    */
-  theme: FolderTheme;
+  theme?: FolderTheme;
   /**
    * The filter to apply to the generated icon.
    */
-  filter: Partial<Filter>;
+  filter?: Filter;
   /**
    * The output resolution of the generated icon.
    * @see {@link Resolution} for available resolution options
    */
-  resolution: Resolution;
+  resolution?: Resolution;
 }
 
 /**
@@ -42,5 +42,5 @@ export interface Filter {
    * This allows customizing the overall color theme of the icon.
    * @defaultValue `undefined`
    */
-  tintColor: Color;
+  tintColor?: Color;
 }

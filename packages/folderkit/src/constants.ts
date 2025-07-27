@@ -2,6 +2,7 @@ import path from 'node:path';
 import url from 'node:url';
 import type { Color } from 'sharp';
 import { FolderTheme, Resolution } from '@/enums';
+import type { Options } from '@/types';
 
 export const RESOURCE_DIR = path.resolve(
   path.dirname(url.fileURLToPath(import.meta.url)),
@@ -9,6 +10,14 @@ export const RESOURCE_DIR = path.resolve(
 );
 
 const RETINA_SCALE = 2;
+
+export const DEFAULT_THEME = FolderTheme.BigSurLight;
+export const DEFAULT_RESOLUTION = Resolution.NonRetina256;
+export const DEFAULT_OPTIONS: Readonly<Options> = Object.freeze({
+  theme: DEFAULT_THEME,
+  filter: {},
+  resolution: DEFAULT_RESOLUTION,
+});
 
 export const RESOLUTION_SIZE: Record<Resolution, number> = {
   [Resolution.NonRetina16]: 16,
