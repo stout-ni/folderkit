@@ -51,7 +51,7 @@ export const GET = async (
     });
   } catch (error) {
     console.error('Error generating folder icon:', error);
-    return new Response('Internal Server Error', { status: 404 });
+    return new Response('Internal Server Error', { status: 500 });
   }
 };
 

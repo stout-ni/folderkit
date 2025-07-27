@@ -12,7 +12,4 @@ export default defineConfig({
       syntax: ['node 18'],
     },
   ],
-  output: {
-    copy: [{ from: 'src/resources', to: 'resources' }],
-  },
 });

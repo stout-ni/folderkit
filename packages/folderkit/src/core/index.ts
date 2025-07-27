@@ -7,7 +7,7 @@ import {
 } from '@folderkit/core/pipelines';
 import { composite } from '@folderkit/core/processors';
 import type { Options } from '@folderkit/types';
-import { getFolderResourcePath, pipeProcessors } from '@folderkit/utils';
+import { getFolderResource, pipeProcessors } from '@folderkit/utils';
 import type { SharpInput } from 'sharp';
 
 export const processImage = async (
@@ -28,11 +28,11 @@ export const processImage = async (
   ]);
 
   // Step 3: Composite the final image
-  const resourcePath = getFolderResourcePath(options);
+  const resource = await getFolderResource(options);
 
   try {
     const result = await pipeProcessors(
-      resourcePath,
+      resource,
       composite(
         { input: filledMask },
         { input: topBezelMask },

@@ -1,16 +1,19 @@
-import path from 'node:path';
-import { RESOURCE_DIR } from '@folderkit/constants';
 import type { Options } from '@folderkit/types';
 import type { Processor } from '@folderkit/types/processor';
 import sharp from 'sharp';
 
 export const bold = (s: string) => `\x1b[1m${s}\x1b[0m`;
 
-export const getFolderResourcePath = ({
+export const getFolderResource = async ({
   theme,
   resolution,
-}: Pick<Options, 'theme' | 'resolution'>): string =>
-  path.join(RESOURCE_DIR, `folders/${theme}.iconset`, `icon_${resolution}.png`);
+}: Pick<Options, 'theme' | 'resolution'>) => {
+  const { default: resource } = await import(
+    `@folderkit/resources/folders/${theme}.iconset/icon_${resolution}.ts`
+  );
+
+  return Buffer.from(resource, 'base64');
+};
 
 export const pipeProcessors = async (
   input: sharp.SharpInput,
