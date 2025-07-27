@@ -33,7 +33,7 @@ importers:
   docs:
     dependencies:
       folderkit:
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../packages/folderkit
       next:
         specifier: 15.4.4
