@@ -1,6 +1,6 @@
 {
   "name": "folderkit",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Pixel-perfect macOS folder icons generator for developers.",
   "keywords": [
     "macOS",
@@ -32,7 +32,8 @@
     "directory": "packages/folderkit"
   },
   "scripts": {
-    "build": "rslib build",
+    "build": "pnpm build:resource && rslib build",
+    "build:resource": "tsx scripts/bundle-resources.ts",
     "dev": "rslib build --watch",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
