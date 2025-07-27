@@ -1,6 +1,6 @@
 import fs from 'node:fs';
-import { FolderTheme, Resolution } from '@/enums';
-import type { IconSetOptions, Options } from '@/types';
+import { FolderTheme, Resolution } from '@folderkit/enums';
+import type { IconSetOptions, Options } from '@folderkit/types';
 
 export const validateOptions = ({ resolution, theme }: Options) => {
   if (!resolution || !Object.values(Resolution).includes(resolution)) {

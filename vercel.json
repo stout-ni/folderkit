@@ -1,0 +1,4 @@
+{
+  "buildCommand": "pnpm --filter docs... build",
+  "outputDirectory": "docs/.next"
+}

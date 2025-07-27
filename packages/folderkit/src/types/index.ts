@@ -1,5 +1,5 @@
+import type { FolderTheme, Resolution } from '@folderkit/enums';
 import type { Color } from 'sharp';
-import type { FolderTheme, Resolution } from '@/enums';
 
 /**
  * Configuration options for generating a complete icon set (.iconset folder) for macOS.
