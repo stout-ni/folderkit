@@ -32,6 +32,7 @@
     "directory": "packages/folderkit"
   },
   "scripts": {
+    "prepare": "tsx scripts/bundle-resources.ts",
     "build": "pnpm build:resource && rslib build",
     "build:resource": "tsx scripts/bundle-resources.ts",
     "dev": "rslib build --watch",
