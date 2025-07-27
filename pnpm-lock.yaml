@@ -32,6 +32,9 @@ importers:
 
   docs:
     dependencies:
+      folderkit:
+        specifier: workspace:^
+        version: link:../packages/folderkit
       next:
         specifier: 15.4.4
         version: 15.4.4(react-dom@19.1.0)(react@19.1.0)
@@ -47,6 +50,12 @@ importers:
       react-dom:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
+      sharp:
+        specifier: ^0.34.3
+        version: 0.34.3
+      simple-icons:
+        specifier: ^15.7.0
+        version: 15.8.0
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4
@@ -6150,6 +6159,11 @@ packages:
   /signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  /simple-icons@15.8.0:
+    resolution: {integrity: sha512-wErxeGj9E8bcS3sP/G1iqCcKAFW6s5rMIHT2ZeNrqAhF3p0zCkbP+LRJNPFnczGpKdTfS4fPQHCvag1QwsAQvg==}
+    engines: {node: '>=0.12.18'}
+    dev: false
 
   /simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}

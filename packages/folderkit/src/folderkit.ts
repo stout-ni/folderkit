@@ -1,11 +1,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { DEFAULT_ICNS_FILENAME, DEFAULT_OPTIONS } from '@folderkit/constants';
+import {
+  processImage,
+  validateIconSetOptions,
+  validateOptions,
+} from '@folderkit/core';
+import { Resolution } from '@folderkit/enums';
+import type { IconSetOptions, Options } from '@folderkit/types';
+import { bold, withErrorBoundary } from '@folderkit/utils';
 import type { SharpInput } from 'sharp';
-import { DEFAULT_ICNS_FILENAME, DEFAULT_OPTIONS } from '@/constants';
-import { processImage, validateIconSetOptions, validateOptions } from '@/core';
-import { Resolution } from '@/enums';
-import type { IconSetOptions, Options } from '@/types';
-import { bold, withErrorBoundary } from '@/utils';
 
 /**
  * Generates a folder icon in native macOS style from the specified input image.

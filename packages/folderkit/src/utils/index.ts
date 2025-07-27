@@ -1,8 +1,8 @@
 import path from 'node:path';
+import { RESOURCE_DIR } from '@folderkit/constants';
+import type { Options } from '@folderkit/types';
+import type { Processor } from '@folderkit/types/processor';
 import sharp from 'sharp';
-import { RESOURCE_DIR } from '@/constants';
-import type { Options } from '@/types';
-import type { Processor } from '@/types/processor';
 
 export const bold = (s: string) => `\x1b[1m${s}\x1b[0m`;
 

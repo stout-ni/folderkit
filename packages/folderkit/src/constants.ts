@@ -1,8 +1,8 @@
 import path from 'node:path';
 import url from 'node:url';
+import { FolderTheme, Resolution } from '@folderkit/enums';
+import type { Options } from '@folderkit/types';
 import type { Color } from 'sharp';
-import { FolderTheme, Resolution } from '@/enums';
-import type { Options } from '@/types';
 
 export const RESOURCE_DIR = path.resolve(
   path.dirname(url.fileURLToPath(import.meta.url)),

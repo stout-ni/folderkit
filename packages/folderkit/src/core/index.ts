@@ -1,14 +1,14 @@
-import type { SharpInput } from 'sharp';
 import {
   pipeBottomBezelMask,
   pipeFilledMask,
   pipeFilter,
   pipeResizedMask,
   pipeTopBezelMask,
-} from '@/core/pipelines';
-import { composite } from '@/core/processors';
-import type { Options } from '@/types';
-import { getFolderResourcePath, pipeProcessors } from '@/utils';
+} from '@folderkit/core/pipelines';
+import { composite } from '@folderkit/core/processors';
+import type { Options } from '@folderkit/types';
+import { getFolderResourcePath, pipeProcessors } from '@folderkit/utils';
+import type { SharpInput } from 'sharp';
 
 export const processImage = async (
   input: SharpInput,

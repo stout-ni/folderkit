@@ -1,4 +1,3 @@
-import type { SharpInput } from 'sharp';
 import {
   BOTTOM_BEZEL_COLOR,
   DEFAULT_RESOLUTION,
@@ -7,10 +6,11 @@ import {
   RESOLUTION_SIZE,
   THEME_FILL_COLOR,
   TOP_BEZEL_COLOR,
-} from '@/constants';
-import * as processors from '@/core/processors';
-import type { Filter, Options } from '@/types';
-import { pipeProcessors, withErrorBoundary } from '@/utils';
+} from '@folderkit/constants';
+import * as processors from '@folderkit/core/processors';
+import type { Filter, Options } from '@folderkit/types';
+import { pipeProcessors, withErrorBoundary } from '@folderkit/utils';
+import type { SharpInput } from 'sharp';
 
 const FULL_MASK_WIDTH = 768;
 const FULL_MASK_HEIGHT = 384;

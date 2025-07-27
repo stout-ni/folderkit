@@ -1,5 +1,5 @@
+import type { Processor } from '@folderkit/types/processor';
 import sharp from 'sharp';
-import type { Processor } from '@/types/processor';
 
 export const resize =
   (options: sharp.ResizeOptions): Processor =>

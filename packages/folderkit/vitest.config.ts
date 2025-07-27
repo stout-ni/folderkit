@@ -4,7 +4,7 @@ export default defineConfig({
   // Configure Vitest (https://vitest.dev/config/)
   test: {
     alias: {
-      '@/': new URL('./src/', import.meta.url).pathname,
+      '@folderkit/': new URL('./src/', import.meta.url).pathname,
     },
     coverage: {
       include: ['src/**/*.ts'],

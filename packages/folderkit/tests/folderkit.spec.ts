@@ -1,13 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import sharp from 'sharp';
-import { beforeEach, describe, expect, it } from 'vitest';
 import {
   FolderTheme,
   generate,
   generateIconSet,
   type Resolution,
-} from '@/index';
+} from '@folderkit/index';
+import sharp from 'sharp';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 const EXAMPLES_DIR = path.resolve('examples');
 const DEFAULT_EXAMPLE_PATH = path.resolve(EXAMPLES_DIR, 'apple.png');
