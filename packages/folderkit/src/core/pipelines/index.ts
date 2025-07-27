@@ -1,6 +1,8 @@
 import type { SharpInput } from 'sharp';
 import {
   BOTTOM_BEZEL_COLOR,
+  DEFAULT_RESOLUTION,
+  DEFAULT_THEME,
   RESOLUTION_OFFSET_Y,
   RESOLUTION_SIZE,
   THEME_FILL_COLOR,
@@ -15,7 +17,10 @@ const FULL_MASK_HEIGHT = 384;
 
 export const pipeResizedMask = async (
   input: SharpInput,
-  { trim: shouldTrim = true, resolution }: Pick<Options, 'trim' | 'resolution'>,
+  {
+    trim: shouldTrim = true,
+    resolution = DEFAULT_RESOLUTION,
+  }: Pick<Options, 'trim' | 'resolution'>,
 ) =>
   withErrorBoundary(async () => {
     const resolutionSize = RESOLUTION_SIZE[resolution];
@@ -61,7 +66,7 @@ export const pipeResizedMask = async (
 
 export const pipeFilledMask = (
   input: SharpInput,
-  { theme }: Pick<Options, 'theme'>,
+  { theme = DEFAULT_THEME }: Pick<Options, 'theme'>,
 ) =>
   withErrorBoundary(async () => {
     const fillColor = THEME_FILL_COLOR[theme];
@@ -121,7 +126,7 @@ export const pipeBottomBezelMask = (input: SharpInput) =>
     }
   });
 
-export const pipeFilter = (input: SharpInput, filterOptions: Partial<Filter>) =>
+export const pipeFilter = (input: SharpInput, filterOptions: Filter = {}) =>
   withErrorBoundary(async () => {
     const tintFilterProcessors = filterOptions.tintColor
       ? [

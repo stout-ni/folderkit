@@ -1,17 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { SharpInput } from 'sharp';
-import { DEFAULT_ICNS_FILENAME } from '@/constants';
+import { DEFAULT_ICNS_FILENAME, DEFAULT_OPTIONS } from '@/constants';
 import { processImage, validateIconSetOptions, validateOptions } from '@/core';
-import { FolderTheme, Resolution } from '@/enums';
+import { Resolution } from '@/enums';
 import type { IconSetOptions, Options } from '@/types';
 import { bold, withErrorBoundary } from '@/utils';
-
-const DEFAULT_OPTIONS: Readonly<Options> = Object.freeze({
-  theme: FolderTheme.BigSurLight,
-  filter: {},
-  resolution: Resolution.NonRetina256,
-});
 
 /**
  * Generates a folder icon in native macOS style from the specified input image.
@@ -47,16 +41,16 @@ const DEFAULT_OPTIONS: Readonly<Options> = Object.freeze({
  */
 export const generate = (
   input: SharpInput,
-  passedOptions: Partial<Options> = {},
+  options: Options = {},
 ): Promise<Buffer> => {
-  const options: Options = { ...DEFAULT_OPTIONS, ...passedOptions };
+  const mergedOptions: Options = { ...DEFAULT_OPTIONS, ...options };
 
   return withErrorBoundary(async () => {
     // Validate options and resources
-    validateOptions(options);
+    validateOptions(mergedOptions);
 
     // Process the image through the pipeline
-    return await processImage(input, options);
+    return await processImage(input, mergedOptions);
   });
 };
 
@@ -65,7 +59,7 @@ export const generate = (
  *
  * @param input - Input image (Buffer, Uint8Array, or file path) to be used as the folder icon
  * @param output - Output directory path for the generated .iconset (will be created if it does not exist)
- * @param passedOptions - Optional icon set generation options including theme and trim
+ * @param options - Optional icon set generation options including theme and trim
  * @returns Promise that resolves when the icon set has been generated
  *
  * @example
@@ -82,7 +76,7 @@ export const generate = (
 export const generateIconSet = (
   input: SharpInput,
   output: string,
-  passedOptions: Partial<IconSetOptions> = {},
+  options: IconSetOptions = {},
 ) => {
   // Ensure the output directory has the .iconset extension
   if (path.extname(output) !== '.iconset') {
@@ -90,11 +84,11 @@ export const generateIconSet = (
   }
 
   const { resolution: _resolution, ...defaultOptions } = DEFAULT_OPTIONS;
-  const options: IconSetOptions = { ...defaultOptions, ...passedOptions };
+  const mergedOptions: IconSetOptions = { ...defaultOptions, ...options };
 
   return withErrorBoundary(async () => {
     // Validate icon set options and output path
-    validateIconSetOptions({ ...options, output });
+    validateIconSetOptions({ ...mergedOptions, output });
 
     fs.mkdirSync(output, { recursive: true });
 
@@ -103,7 +97,7 @@ export const generateIconSet = (
       Object.values(Resolution).map(async (resolution) =>
         fs.writeFileSync(
           path.join(output, `icon_${resolution}.png`),
-          await processImage(input, { ...options, resolution }),
+          await processImage(input, { ...mergedOptions, resolution }),
         ),
       ),
     );
